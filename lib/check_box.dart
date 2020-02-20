@@ -6,38 +6,49 @@ class CheckBox extends StatefulWidget {
 }
 
 class _CheckBoxState extends State<CheckBox> {
-  bool _value1 = false;
-  bool _value2 = false;
 
-  //we omitted the brackets '{}' and are using fat arrow '=>' instead, this is dart syntax
-  void _value1Changed(bool value) => setState(() => _value1 = value);
-  void _value2Changed(bool value) => setState(() => _value2 = value);
+  List<bool> inputs = new List<bool>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    setState(() {
+      for(int i=0;i<20;i++){
+        inputs.add(false);
+      }
+    });
+  }
 
+  void ItemChange(bool val,int index){
+    setState(() {
+      inputs[index] = val;
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Name here'),
+        title: new Text('Checked Listview'),
       ),
-      //hit Ctrl+space in intellij to know what are the options you can use in flutter widgets
-      body: new Container(
-        padding: new EdgeInsets.all(32.0),
-        child: new Center(
-          child: new Column(
-            children: <Widget>[
-              new Checkbox(value: _value1, onChanged: _value1Changed),
-              new CheckboxListTile(
-                value: _value2,
-                onChanged: _value2Changed,
-                title: new Text('Hello World'),
-                controlAffinity: ListTileControlAffinity.leading,
-                subtitle: new Text('Subtitle'),
-                secondary: new Icon(Icons.archive),
-                activeColor: Colors.red,
+      body: new ListView.builder(
+          itemCount: inputs.length,
+          itemBuilder: (BuildContext context, int index){
+            return new Card(
+              child: new Container(
+                padding: new EdgeInsets.all(10.0),
+                child: new Column(
+                  children: <Widget>[
+                    new CheckboxListTile(
+                        value: inputs[index],
+                        title: new Text('item ${index}'),
+                        controlAffinity: ListTileControlAffinity.leading,
+                        onChanged:(bool val){ItemChange(val, index);}
+                    )
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
+            );
+          }
       ),
     );
   }
