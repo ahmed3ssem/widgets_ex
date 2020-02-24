@@ -9,14 +9,10 @@ class _RadioButtonWidgetState extends State<RadioButtonWidget> {
 
   int _currentIndex = 1;
 
-  List<int> _texts = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
+  List<String> _texts = [
+    "Messi",
+    "Ronaldo",
+    "Xavi",
   ];
 
   @override
@@ -35,6 +31,7 @@ class _RadioButtonWidgetState extends State<RadioButtonWidget> {
           onChanged: (val) {
             setState(() {
               _currentIndex = val;
+              print(val);
             });
           },
         )).toList(),
